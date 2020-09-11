@@ -62,3 +62,12 @@ class MeetupButton extends SocialMediaButton {
       websiteName: "Meetup"
   );
 }
+
+class MailButton extends SocialMediaButton {
+  const MailButton() : super(
+      tooltip:  "Send us a Mail!",
+      icon: const Image(image: AssetImage("mail.png")),
+      websiteLink: "mailto:hi@flutter.coffee",
+      websiteName: "Mail"
+  );
+}

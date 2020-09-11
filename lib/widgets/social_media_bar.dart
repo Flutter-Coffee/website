@@ -12,6 +12,8 @@ class SocialMediaBar extends StatelessWidget {
         MeetupButton(),
         SizedBox(width: 28),
         TwitterButton(),
+        SizedBox(width: 28),
+        MailButton()
       ],
     );
   }
