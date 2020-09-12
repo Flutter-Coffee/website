@@ -48,3 +48,7 @@ flutter:
   assets:
     - assets/background.jpg
     - assets/instagram.png
+    - assets/logo.png
+    - assets/mail.png
+    - assets/meetup.png
+    - assets/twitter.png
