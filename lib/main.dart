@@ -1,17 +1,30 @@
 import 'package:fcswebsite/routes/home_route.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import 'routes/home_route.dart';
 
 void main() {
   runApp(Website());
 }
 
 class Website extends StatelessWidget {
-
   static final DateTime MEETING_DATE = DateTime(2020, 9, 17, 19);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, widget) => ResponsiveWrapper.builder(
+        BouncingScrollWrapper.builder(context, widget),
+          minWidth: 810,
+          defaultScale: true,
+          breakpoints: [
+            ResponsiveBreakpoint.resize(450, name: MOBILE),
+            ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+          ],
+      ),
       title: 'Flutter Coffee Show',
       theme: ThemeData(
         primarySwatch: Colors.blue,
