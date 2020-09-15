@@ -20,9 +20,13 @@ class _CountdownState extends State<Countdown> {
   void initState() {
     _remainingTime = Website.MEETING_DATE.difference(DateTime.now());
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _remainingTime = Website.MEETING_DATE.difference(DateTime.now());
-      });
+      if (_remainingTime.inSeconds == 0) {
+        dispose();
+      } else {
+        setState(() {
+          _remainingTime = Website.MEETING_DATE.difference(DateTime.now());
+        });
+      }
     });
     super.initState();
   }
