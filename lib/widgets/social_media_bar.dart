@@ -13,7 +13,11 @@ class SocialMediaBar extends StatelessWidget {
         SizedBox(width: 28),
         TwitterButton(),
         SizedBox(width: 28),
-        MailButton()
+        MailButton(),
+        SizedBox(width: 28),
+        YoutubeButton(),
+        SizedBox(width: 28),
+        TwitchButton()
       ],
     );
   }
