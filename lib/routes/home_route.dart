@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:fcswebsite/widgets/countdown.dart';
 import 'package:fcswebsite/widgets/social_media_bar.dart';
+import 'package:fcswebsite/widgets/social_media_buttons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -35,15 +37,17 @@ class HomeRoute extends StatelessWidget {
                       SocialMediaBar(),
                       SizedBox(height: 30),
                       Container(
-                        margin: EdgeInsets.only(left: 200, right: 200),
+                        margin: (MediaQuery.of(context).size.width < 720) ? EdgeInsets.only(left: 0, right: 0) : EdgeInsets.only(left: 200, right: 200),
                         child: Text(
                           "A Flutter show shaped by the community, with interesting but entertaining content ranging from live talks, news, packages, QAs and much more!\nTo get the latest updates, make sure to follow us on our social media channels above and tune in for our first show on the 17th of September 5 pm UTC!",
                           style: GoogleFonts.architectsDaughter(fontSize: 36, color: Colors.white70),
                         ),
                       ),
                       SizedBox(height: 30),
-                      SizedBox(height: 30),
                       Countdown(),
+                      SizedBox(height: 30),
+                      Text("Made with ♥ and obviously flutter web :)", style: GoogleFonts.roboto(fontSize: 24, color: Colors.white)),
+                      GithubButton(),
                       SizedBox(height: 30),
                     ],
                   ),
