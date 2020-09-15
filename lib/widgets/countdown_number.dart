@@ -14,7 +14,7 @@ class CountdownNumber extends StatelessWidget {
       width: 140,
       height: 140,
       decoration: BoxDecoration(
-        color: Colors.black38,
+        color: Colors.white30,
         borderRadius: BorderRadius.all(Radius.circular(200))
       ),
       child: Column(

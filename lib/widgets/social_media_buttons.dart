@@ -46,3 +46,6 @@ class YoutubeButton extends SocialMediaButton {
 class TwitchButton extends SocialMediaButton {
   const TwitchButton() : super(tooltip: "Watch us on Twitch!", icon: const FaIcon(FontAwesomeIcons.twitch), websiteLink: "https://www.twitch.tv/fluttercoffee", websiteName: "Twitch");
 }
+class GithubButton extends SocialMediaButton {
+  const GithubButton() : super(tooltip: "Star us on Github!", icon: const FaIcon(FontAwesomeIcons.github), websiteLink: "https://github.com/Flutter-Coffee/website", websiteName: "Github");
+}
