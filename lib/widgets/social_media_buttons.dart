@@ -32,9 +32,17 @@ class TwitterButton extends SocialMediaButton {
 }
 
 class MeetupButton extends SocialMediaButton {
-  const MeetupButton() : super(tooltip: "Join the Meetup!", icon: const FaIcon(FontAwesomeIcons.meetup), websiteLink: "http://meetu.ps/e/JjFHN/FZPLN/d", websiteName: "Meetup");
+  const MeetupButton() : super(tooltip: "Join the Meetup!", icon: const FaIcon(FontAwesomeIcons.meetup), websiteLink: "https://www.meetup.com/de-DE/Karlsruhe-Flutter-Meetup/events/272873369/", websiteName: "Meetup");
 }
 
 class MailButton extends SocialMediaButton {
   const MailButton() : super(tooltip: "Send us a Mail!", icon: const FaIcon(FontAwesomeIcons.envelope), websiteLink: "mailto:hi@flutter.coffee", websiteName: "Mail");
+}
+
+class YoutubeButton extends SocialMediaButton {
+  const YoutubeButton() : super(tooltip: "Watch us on Youtube!", icon: const FaIcon(FontAwesomeIcons.youtube), websiteLink: "https://www.youtube.com/watch?v=q0TeefPH2qM", websiteName: "Youtube");
+}
+
+class TwitchButton extends SocialMediaButton {
+  const TwitchButton() : super(tooltip: "Watch us on Twitch!", icon: const FaIcon(FontAwesomeIcons.twitch), websiteLink: "https://www.twitch.tv/fluttercoffee", websiteName: "Twitch");
 }
