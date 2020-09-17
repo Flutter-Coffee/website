@@ -43,8 +43,6 @@ class HomeRoute extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      Countdown(),
-                      SizedBox(height: 30),
                       Text("Made with ♥ and obviously flutter web :)", style: GoogleFonts.roboto(fontSize: 24, color: Colors.white)),
                       GithubButton(),
                       SizedBox(height: 30),
