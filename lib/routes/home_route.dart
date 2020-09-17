@@ -4,7 +4,6 @@ import 'package:fcswebsite/widgets/countdown.dart';
 import 'package:fcswebsite/widgets/social_media_bar.dart';
 import 'package:fcswebsite/widgets/social_media_buttons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
