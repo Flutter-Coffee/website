@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CountdownNumber extends StatelessWidget {
 
   final String subtitle;
-  final String number;
+  final int number;
 
   const CountdownNumber({Key key, @required this.number, @required this.subtitle}) : super(key: key);
 
@@ -20,7 +20,7 @@ class CountdownNumber extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(this.number, style: GoogleFonts.roboto(
+          Text(this.number.toString().padLeft(2, '0'), style: GoogleFonts.roboto(
             fontSize: 80,
             fontWeight: FontWeight.w100
           )),
