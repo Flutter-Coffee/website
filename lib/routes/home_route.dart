@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../main.dart';
+
 class HomeRoute extends StatelessWidget {
   HomeRoute({Key key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class HomeRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints.expand(),
+      // Background image
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage("background.jpg"), fit: BoxFit.cover),
       ),
@@ -26,6 +29,7 @@ class HomeRoute extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 32),
                   child: Column(
                     children: <Widget>[
+                      // Logo
                       Image(
                         width: 200,
                         height: 200,
@@ -38,11 +42,12 @@ class HomeRoute extends StatelessWidget {
                       Container(
                         margin: (MediaQuery.of(context).size.width < 720) ? EdgeInsets.only(left: 0, right: 0) : EdgeInsets.only(left: 200, right: 200),
                         child: Text(
-                          "A Flutter show shaped by the community, with interesting but entertaining content ranging from live talks, news, packages, QAs and much more!\nTo get the latest updates, make sure to follow us on our social media channels above and tune in for our first show on the 17th of September 5 pm UTC!",
+                          "A Flutter show shaped by the community, with interesting but entertaining content ranging from live talks, news, packages, QAs and much more!\nTo get the latest updates, make sure to follow us on our social media channels above and tune in for our next show on the 22th of October 5 pm UTC!",
                           style: GoogleFonts.architectsDaughter(fontSize: 36, color: Colors.white70),
                         ),
                       ),
                       SizedBox(height: 30),
+                      getCountdown(),
                       Text("Made with ♥ and obviously flutter web :)", style: GoogleFonts.roboto(fontSize: 24, color: Colors.white)),
                       GithubButton(),
                       SizedBox(height: 30),
@@ -53,5 +58,18 @@ class HomeRoute extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  Widget getCountdown() {
+    print(Website.meetingDate);
+    print(DateTime.now().toUtc());
+    print(Website.meetingDate.difference(DateTime.now().toUtc()).inMinutes);
+    if (Website.meetingDate.difference(DateTime.now().toUtc()).inSeconds > -20) {
+      return (Column(
+        children: [Countdown(), SizedBox(height: 30)],
+      ));
+    } else {
+      return SizedBox();
+    }
   }
 }
