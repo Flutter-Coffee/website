@@ -1,11 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:fcswebsite/main.dart';
+import 'package:fcswebsite/widgets/confetti.dart';
 import 'package:fcswebsite/widgets/countdown_number.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:confetti/confetti.dart';
+
+import '../main.dart';
+
+enum TimeUnit { seconds, minutes, hours, days }
 
 class Countdown extends StatefulWidget {
   Countdown({Key key}) : super(key: key);
@@ -15,91 +18,76 @@ class Countdown extends StatefulWidget {
 }
 
 class _CountdownState extends State<Countdown> {
-  Timer _timer;
   Duration _remainingTime;
-  ConfettiController _controllerCenterRight;
-  ConfettiController _controllerCenterLeft;
+  ConfettiController controllerCenterRight;
+  ConfettiController controllerCenterLeft;
 
   @override
   void initState() {
-    _remainingTime = Website.meetingDate.difference(DateTime.now());
-    _controllerCenterRight = ConfettiController(duration: const Duration(seconds: 10));
-    _controllerCenterLeft = ConfettiController(duration: const Duration(seconds: 10));
+    super.initState();
+    setRemainingTime();
+    initConfettiController();
+    // Only start if the time has not already passed
+    if (_remainingTime.inSeconds > 0) {
+      startTimer();
+    }
+  }
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingTime.inSeconds == 0) {
-        setState(() {
-          _controllerCenterLeft.play();
-          _controllerCenterRight.play();
-        });
-        _timer.cancel();
+  initConfettiController() {
+    controllerCenterRight = ConfettiController(duration: const Duration(seconds: 10));
+    controllerCenterLeft = ConfettiController(duration: const Duration(seconds: 10));
+  }
+
+  setRemainingTime() {
+    if (Website.meetingDate.difference(DateTime.now().toUtc()).inSeconds <= 0) {
+      _remainingTime = Duration(days: 0, hours: 0, minutes: 0, seconds: 0);
+    } else {
+      _remainingTime = Website.meetingDate.difference(DateTime.now().toUtc().toUtc());
+    }
+  }
+
+  startTimer() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      // Stop timer when ready
+      if (_remainingTime.inSeconds <= 0) {
+        timer.cancel();
+        _remainingTime = Duration(days: 0, hours: 0, minutes: 0, seconds: 0);
+        startConfetti();
       } else {
         setState(() {
-          // Countdown timer
-          _remainingTime = Website.meetingDate.difference(DateTime.now());
+          _remainingTime = Website.meetingDate.difference(DateTime.now().toUtc());
         });
       }
     });
-    super.initState();
   }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
+  startConfetti() {
+    setState(() {
+      controllerCenterLeft.play();
+      controllerCenterRight.play();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Devices < 720w idth
     if (MediaQuery.of(context).size.width < 720) {
       return mobileCountdown();
     }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: ConfettiWidget(
-            confettiController: _controllerCenterLeft,
-            blastDirection: -pi / 2,
-            emissionFrequency: 0.02,
-            numberOfParticles: 50,
-            maxBlastForce: 100,
-            minBlastForce: 80,
-            gravity: 0.1,
-          ),
-        ),
-        CountdownNumber(
-          number: _remainingTime.inDays.toString().padLeft(2, '0'),
-          subtitle: "DAYS",
-        ),
+        leftConfettiNode(controllerCenterLeft),
+        // Countdown timer
+        getCountdown(TimeUnit.days, _remainingTime),
         SizedBox(width: 32),
-        CountdownNumber(
-          number: (_remainingTime.inHours % 24).toString().padLeft(2, '0'),
-          subtitle: "HOURS",
-        ),
+        getCountdown(TimeUnit.hours, _remainingTime),
         SizedBox(width: 32),
-        CountdownNumber(
-          number: (_remainingTime.inMinutes % 60).toString().padLeft(2, '0'),
-          subtitle: "MINUTES",
-        ),
+        getCountdown(TimeUnit.minutes, _remainingTime),
         SizedBox(width: 32),
-        CountdownNumber(
-          number: (_remainingTime.inSeconds % 60).toString().padLeft(2, '0'),
-          subtitle: "SECONDS",
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: ConfettiWidget(
-            confettiController: _controllerCenterRight,
-            blastDirection: -pi / 2,
-            emissionFrequency: 0.02,
-            numberOfParticles: 50,
-            maxBlastForce: 100,
-            minBlastForce: 80,
-            gravity: 0.1,
-          ),
-        ),
+        getCountdown(TimeUnit.seconds, _remainingTime),
+        rightConfettiNode(controllerCenterRight)
       ],
     );
   }
@@ -108,61 +96,58 @@ class _CountdownState extends State<Countdown> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: ConfettiWidget(
-            confettiController: _controllerCenterLeft,
-            blastDirection: -pi / 2,
-            emissionFrequency: 0.02,
-            numberOfParticles: 50,
-            maxBlastForce: 100,
-            minBlastForce: 80,
-            gravity: 0.1,
-          ),
-        ),
+        leftConfettiNode(controllerCenterLeft),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CountdownNumber(
-              number: _remainingTime.inDays.toString().padLeft(2, '0'),
-              subtitle: "DAYS",
-            ),
+            getCountdown(TimeUnit.days, _remainingTime),
             SizedBox(width: 32),
-            CountdownNumber(
-              number: (_remainingTime.inHours % 24).toString().padLeft(2, '0'),
-              subtitle: "HOURS",
-            ),
+            getCountdown(TimeUnit.hours, _remainingTime),
           ],
         ),
         Padding(
             padding: const EdgeInsets.only(top: 32),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CountdownNumber(
-                  number: (_remainingTime.inMinutes % 60).toString().padLeft(2, '0'),
-                  subtitle: "MINUTES",
-                ),
-                SizedBox(width: 32),
-                CountdownNumber(
-                  number: (_remainingTime.inSeconds % 60).toString().padLeft(2, '0'),
-                  subtitle: "SECONDS",
-                ),
-              ],
+              children: <Widget>[getCountdown(TimeUnit.minutes, _remainingTime), SizedBox(width: 32), getCountdown(TimeUnit.seconds, _remainingTime)],
             )),
-        Align(
-          alignment: Alignment.centerRight,
-          child: ConfettiWidget(
-            confettiController: _controllerCenterRight,
-            blastDirection: -pi / 2,
-            emissionFrequency: 0.02,
-            numberOfParticles: 50,
-            maxBlastForce: 100,
-            minBlastForce: 80,
-            gravity: 0.1,
-          ),
-        ),
+        rightConfettiNode(controllerCenterRight)
       ],
     );
+  }
+}
+
+// Get right countdown depending on timeunit displaying the remaining time
+Widget getCountdown(TimeUnit timeUnit, Duration remainingTime) {
+  switch (timeUnit) {
+    case TimeUnit.seconds:
+      return (CountdownNumber(
+        number: remainingTime.inSeconds % 60,
+        subtitle: "SECONDS",
+      ));
+      break;
+    case TimeUnit.minutes:
+      return (CountdownNumber(
+        number: remainingTime.inMinutes % 60,
+        subtitle: "MINUTES",
+      ));
+      break;
+    case TimeUnit.hours:
+      return (CountdownNumber(
+        number: remainingTime.inHours % 60,
+        subtitle: "HOURS",
+      ));
+      break;
+    case TimeUnit.days:
+      return (CountdownNumber(
+        number: remainingTime.inDays % 60,
+        subtitle: "DAYS",
+      ));
+      break;
+    default:
+      return (CountdownNumber(
+        number: remainingTime.inSeconds % 60,
+        subtitle: "SECONDS",
+      ));
   }
 }
