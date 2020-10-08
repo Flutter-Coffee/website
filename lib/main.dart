@@ -8,7 +8,7 @@ void main() {
 }
 
 class Website extends StatelessWidget {
-  static final DateTime meetingDate = DateTime(2020, 9, 17, 19);
+  static final DateTime meetingDate = DateTime.utc(2020, 10, 22, 17);
 
   @override
   Widget build(BuildContext context) {
