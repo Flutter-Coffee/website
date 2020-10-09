@@ -61,9 +61,6 @@ class HomeRoute extends StatelessWidget {
   }
 
   Widget getCountdown() {
-    print(Website.meetingDate);
-    print(DateTime.now().toUtc());
-    print(Website.meetingDate.difference(DateTime.now().toUtc()).inMinutes);
     if (Website.meetingDate.difference(DateTime.now().toUtc()).inSeconds > -20) {
       return (Column(
         children: [Countdown(), SizedBox(height: 30)],
