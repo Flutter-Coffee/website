@@ -42,7 +42,7 @@ class HomeRoute extends StatelessWidget {
                       Container(
                         margin: (MediaQuery.of(context).size.width < 720) ? EdgeInsets.only(left: 0, right: 0) : EdgeInsets.only(left: 200, right: 200),
                         child: Text(
-                          "A Flutter show shaped by the community, with interesting but entertaining content ranging from live talks, news, packages, QAs and much more!\nTo get the latest updates, make sure to follow us on our social media channels above and tune in for our next show on the 22th of October 5 pm UTC!",
+                          "A Flutter show shaped by the community, with interesting but entertaining content ranging from live talks, news, packages, QAs and much more!\nTo get the latest updates, make sure to follow us on our social media channels above and tune in for our next show on the 12th of November 5 pm UTC!",
                           style: GoogleFonts.architectsDaughter(fontSize: 36, color: Colors.white70),
                         ),
                       ),
