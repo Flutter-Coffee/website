@@ -39,8 +39,6 @@ class SocialMediaBar extends StatelessWidget {
         MailButton(),
         SizedBox(width: 28),
         YoutubeButton(),
-        SizedBox(width: 28),
-        TwitchButton()
       ],
     );
   }

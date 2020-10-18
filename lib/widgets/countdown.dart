@@ -134,13 +134,13 @@ Widget getCountdown(TimeUnit timeUnit, Duration remainingTime) {
       break;
     case TimeUnit.hours:
       return (CountdownNumber(
-        number: remainingTime.inHours % 60,
+        number: remainingTime.inHours % 24,
         subtitle: "HOURS",
       ));
       break;
     case TimeUnit.days:
       return (CountdownNumber(
-        number: remainingTime.inDays % 60,
+        number: remainingTime.inDays,
         subtitle: "DAYS",
       ));
       break;
