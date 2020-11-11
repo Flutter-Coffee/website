@@ -40,7 +40,7 @@ class MailButton extends SocialMediaButton {
 }
 
 class YoutubeButton extends SocialMediaButton {
-  const YoutubeButton() : super(tooltip: "Watch us on Youtube!", icon: const FaIcon(FontAwesomeIcons.youtube), websiteLink: "https://www.youtube.com/watch?v=q0TeefPH2qM", websiteName: "Youtube");
+  const YoutubeButton() : super(tooltip: "Watch us on Youtube!", icon: const FaIcon(FontAwesomeIcons.youtube), websiteLink: "https://www.youtube.com/watch?v=QJHhv5tTRd4", websiteName: "Youtube");
 }
 
 class TwitchButton extends SocialMediaButton {
